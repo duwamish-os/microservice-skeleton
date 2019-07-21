@@ -1,0 +1,5 @@
+rootProject.name='microservice'
+
+include 'microservice-api'
+include 'microservice-schema'
+
