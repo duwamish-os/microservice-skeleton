@@ -29,3 +29,14 @@ jar {
         )
     }
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes'Implementation-Title': 'microservice-api',
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
+    }
+    baseName = project.name + '-assembly'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

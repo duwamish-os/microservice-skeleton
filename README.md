@@ -7,6 +7,21 @@ This demonstrates how to create a microservice with api and schema as separate j
 - microservice-schema
  
 
+artifacts
+---------
+
+
+```bash
+λ gradle fatJar
+λ ls -l microservice-api/build/libs/
+total 8
+-rw-r--r--  1 prayagupd  184630988  1644 Jul 21 16:00 microservice-api-1.0.jar
+
+λ ls -l microservice-schema/build/libs/
+total 8
+-rw-r--r--  1 prayagupd  184630988  1233 Jul 21 16:00 microservice-schema-1.0.jar
+```
+
 run microservice
 --------
 
@@ -22,14 +37,9 @@ BUILD SUCCESSFUL in 0s
 6 actionable tasks: 6 executed
 ```
 
-artifacts
----------
-
-
 ```bash
-
-λ ll microservice-api/build/distributions/
-total 16864
-8641996081 -rw-r--r--  1 prayagupd  184630988   4.4M Jul 21 15:36 microservice-api-1.0.tar
-8641996082 -rw-r--r--  1 prayagupd  184630988   3.9M Jul 21 15:36 microservice-api-1.0.zip
+λ java -jar microservice-api/build/libs/microservice-api-assembly-1.0.jar 
+===================
+1-hello microservice
+===================
 ```
