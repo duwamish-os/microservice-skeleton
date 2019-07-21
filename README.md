@@ -7,9 +7,19 @@ This demonstrates how to create a microservice with api and schema as separate j
 - microservice-schema
  
 
-artifacts
----------
+publishing artifacts
+----------
 
+```bash
+λ gradle publishToMavenLocal
+λ ls -l ~/.m2/repository/org/duwamish/microservice/
+total 0
+drwxr-xr-x  4 prayagupd  184630988  128 Jul 21 16:11 microservice-api
+drwxr-xr-x  4 prayagupd  184630988  128 Jul 21 16:13 microservice-schema
+```
+
+creating fat artifact
+---------
 
 ```bash
 λ gradle fatJar

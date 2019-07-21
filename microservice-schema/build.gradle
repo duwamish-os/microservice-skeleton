@@ -1,6 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 sourceCompatibility = 12
 targetCompatibility = 12
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
