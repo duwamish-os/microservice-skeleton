@@ -1,5 +1,4 @@
-rootProject.name='microservice'
+rootProject.name='microservice-skeleton'
 
 include 'microservice-api'
 include 'microservice-schema'
-

@@ -1,9 +1,13 @@
 plugins {
-    id 'groovy'
+    id 'java'
+    id 'application'
 }
+
+targetCompatibility = 12
 
 dependencies {
     compile 'org.codehaus.groovy:groovy:2.4.10'
+    compile project(':microservice-schema')
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4', {
         exclude module: 'groovy-all'
