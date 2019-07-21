@@ -10,7 +10,9 @@ public class Application {
                 "hello microservice"
         );
 
-        System.out.println(response);
+        System.out.println("===================");
+        System.out.println(response.requestId + "-" + response.messsage);
+        System.out.println("===================");
     }
 
 }

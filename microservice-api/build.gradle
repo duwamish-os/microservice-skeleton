@@ -5,6 +5,8 @@ plugins {
 
 targetCompatibility = 12
 
+mainClassName = 'org.duwamish.microservice.api.Application'
+
 dependencies {
     compile 'org.codehaus.groovy:groovy:2.4.10'
     compile project(':microservice-schema')
