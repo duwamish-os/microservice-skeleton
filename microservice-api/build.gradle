@@ -1,14 +1,19 @@
 plugins {
     id 'java'
     id 'application'
+    id 'java-library'
+    id 'maven-publish'
 }
 
+sourceCompatibility = 12
 targetCompatibility = 12
 
 mainClassName = 'org.duwamish.microservice.api.Application'
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy:2.4.10'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+
     compile project(':microservice-schema')
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4', {
