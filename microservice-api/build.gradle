@@ -19,6 +19,9 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4', {
         exclude module: 'groovy-all'
     }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
 jar {
@@ -47,4 +50,8 @@ publishing {
             from components.java
         }
     }
+}
+
+test {
+    useJUnitPlatform()
 }

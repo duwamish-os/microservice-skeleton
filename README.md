@@ -11,6 +11,11 @@ publishing artifacts
 ----------
 
 ```bash
+λ gradle test
+
+BUILD SUCCESSFUL in 0s
+5 actionable tasks: 5 up-to-date
+
 λ gradle publishToMavenLocal
 λ ls -l ~/.m2/repository/org/duwamish/microservice/
 total 0
