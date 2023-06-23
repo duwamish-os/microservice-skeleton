@@ -2,17 +2,13 @@ package org.duwamish.microservice.api;
 
 import java.util.List;
 import org.duwamish.microservice.schema.AdCampaign;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-public class SkeletonController {
+@RestController
+public class SkeletonController implements SkeletonHttpClient {
 
-    @GetMapping("ads")
-    public ResponseEntity<List<AdCampaign>> getAds() {
-        return ResponseEntity.ok(
-            List.of(new AdCampaign(List.of("1", "2")))
-        );
+    public List<AdCampaign> getAds() {
+        return
+            List.of(new AdCampaign(List.of("1", "2")));
     }
 }

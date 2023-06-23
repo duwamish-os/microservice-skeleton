@@ -1,9 +1,22 @@
+buildscript {
+    ext.kotlin_version = '1.9.0-Beta'
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '4.24.16'
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
     id 'java-library'
     id 'maven-publish'
 }
+
+apply plugin: 'com.jfrog.artifactory'
 
 sourceCompatibility = 12
 targetCompatibility = 12
@@ -14,6 +27,7 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.7'
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4')
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.4')
 
@@ -34,14 +48,14 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
-jar {
-    manifest {
-        attributes(
-                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
-                'Main-Class': mainClassName
-        )
-    }
-}
+//jar {
+//    manifest {
+//        attributes(
+//                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
+//                'Main-Class': mainClassName
+//        )
+//    }
+//}
 
 task fatJar(type: Jar) {
     manifest {
@@ -64,4 +78,49 @@ publishing {
 
 test {
     useJUnitPlatform()
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    maven {
+        url "${artifactory_contextUrl}/libs-release-local-origin"
+        credentials {
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+    }
+    maven {
+        url "${artifactory_contextUrl}/libs-snapshot-local-origin"
+        credentials {
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+    }
+}
+
+artifactory {
+    contextUrl = System.getenv("artifactory_contextUrl") ?: "${artifactory_contextUrl}"
+    publish {
+        repository {
+            def releasesRepoKey = 'libs-release-local-origin'
+            def snapshotsRepoKey = 'libs-snapshot-local-origin'
+
+            repoKey = version.endsWith('SNAPSHOT') ? snapshotsRepoKey : releasesRepoKey
+            username = System.getenv("artifactory_user") ?: "${artifactory_user}"
+            password = System.getenv("artifactory_password") ?: "${artifactory_password}"
+            maven = true
+        }
+
+        defaults {
+            publications('mavenJava')
+        }
+    }
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }

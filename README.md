@@ -40,7 +40,7 @@ total 8
 run microservice
 --------
 
-```
+```bash
 λ gradle clean run
 
 > Task :microservice-api:run
