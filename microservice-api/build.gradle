@@ -85,36 +85,17 @@ repositories {
     mavenCentral()
 
     maven {
-        url "${artifactory_contextUrl}/libs-release-local-origin"
+        url "${artifactory_contextUrl}/???"
         credentials {
             username = "${artifactory_user}"
             password = "${artifactory_password}"
         }
     }
     maven {
-        url "${artifactory_contextUrl}/libs-snapshot-local-origin"
+        url "${artifactory_contextUrl}/???"
         credentials {
             username = "${artifactory_user}"
             password = "${artifactory_password}"
-        }
-    }
-}
-
-artifactory {
-    contextUrl = System.getenv("artifactory_contextUrl") ?: "${artifactory_contextUrl}"
-    publish {
-        repository {
-            def releasesRepoKey = 'libs-release-local-origin'
-            def snapshotsRepoKey = 'libs-snapshot-local-origin'
-
-            repoKey = version.endsWith('SNAPSHOT') ? snapshotsRepoKey : releasesRepoKey
-            username = System.getenv("artifactory_user") ?: "${artifactory_user}"
-            password = System.getenv("artifactory_password") ?: "${artifactory_password}"
-            maven = true
-        }
-
-        defaults {
-            publications('mavenJava')
         }
     }
 }
