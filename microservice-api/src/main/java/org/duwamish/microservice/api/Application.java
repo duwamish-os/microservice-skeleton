@@ -1,7 +1,10 @@
 package org.duwamish.microservice.api;
 
 import org.duwamish.microservice.schema.MicroserviceResponse;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Application {
 
     public static void main(String[] args) {
@@ -13,6 +16,8 @@ public class Application {
         System.out.println("===================");
         System.out.println(response.requestId + "-" + response.messsage);
         System.out.println("===================");
+
+        SpringApplication.run(Application.class, args);
     }
 
 }

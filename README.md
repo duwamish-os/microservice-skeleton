@@ -57,4 +57,9 @@ BUILD SUCCESSFUL in 0s
 ===================
 1-hello microservice
 ===================
+
+
+curl localhost:8080/ads
+[{"ads":["1","2"]}]
+
 ```
