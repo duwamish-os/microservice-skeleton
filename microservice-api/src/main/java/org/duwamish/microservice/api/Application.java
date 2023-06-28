@@ -10,15 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class Application {
 
     public static void main(String[] args) {
-        MicroserviceResponse response  = new MicroserviceResponse(
-                "1",
-                "hello microservice"
-        );
-
-        System.out.println("===================");
-        System.out.println(response.requestId + "-" + response.messsage);
-        System.out.println("===================");
-
         SpringApplication.run(Application.class, args);
     }
 

@@ -43,22 +43,6 @@ run microservice
 ```bash
 λ gradle clean run
 
-> Task :microservice-api:run
-===================
-1-hello microservice
-===================
-
-BUILD SUCCESSFUL in 0s
-6 actionable tasks: 6 executed
-```
-
-```bash
-λ java -jar microservice-api/build/libs/microservice-api-assembly-1.0.jar 
-===================
-1-hello microservice
-===================
-
-
 curl localhost:8080/ads
 [{"ads":["1","2"]}]
 

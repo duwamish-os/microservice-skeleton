@@ -4,17 +4,21 @@ import java.util.List;
 
 public class AdCampaign {
 
-    List<String> ads;
+    List<String> products;
 
-    public AdCampaign(List<String> ads) {
-        this.ads = ads;
+    public AdCampaign() {
+
     }
 
-    public List<String> getAds() {
-        return ads;
+    public AdCampaign(List<String> products) {
+        this.products = products;
     }
 
-    public void setAds(List<String> ads) {
-        this.ads = ads;
+    public List<String> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<String> products) {
+        this.products = products;
     }
 }

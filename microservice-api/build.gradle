@@ -27,6 +27,10 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 
+    implementation group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.9.1'
+    implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: '11.9.1'
+    implementation group: 'io.github.openfeign', name: 'feign-jackson', version: '11.9.1'
+
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.7'
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4')
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.4')
@@ -84,20 +88,20 @@ repositories {
     mavenLocal()
     mavenCentral()
 
-    maven {
-        url "${artifactory_contextUrl}/???"
-        credentials {
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-    }
-    maven {
-        url "${artifactory_contextUrl}/???"
-        credentials {
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-    }
+//    maven {
+//        url "${artifactory_contextUrl}/???"
+//        credentials {
+//            username = "${artifactory_user}"
+//            password = "${artifactory_password}"
+//        }
+//    }
+//    maven {
+//        url "${artifactory_contextUrl}/???"
+//        credentials {
+//            username = "${artifactory_user}"
+//            password = "${artifactory_password}"
+//        }
+//    }
 }
 
 configurations {

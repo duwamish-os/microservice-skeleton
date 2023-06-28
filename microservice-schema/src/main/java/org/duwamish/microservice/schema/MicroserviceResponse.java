@@ -1,11 +1,21 @@
 package org.duwamish.microservice.schema;
 
-public class MicroserviceResponse {
-    public String requestId;
-    public String messsage;
+public class MicroserviceResponse<A> {
+    private A payload;
 
-    public MicroserviceResponse(String requestId, String messsage) {
-        this.requestId = requestId;
-        this.messsage = messsage;
+    public MicroserviceResponse(){
+
+    }
+
+    public MicroserviceResponse(A a) {
+        this.payload = a;
+    }
+
+    public A getPayload() {
+        return payload;
+    }
+
+    public void setPayload(A payload) {
+        this.payload = payload;
     }
 }
