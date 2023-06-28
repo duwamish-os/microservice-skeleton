@@ -1,6 +1,7 @@
 package org.duwamish.microservice.api.http;
 
 import feign.RequestLine;
+import java.util.concurrent.CompletableFuture;
 import org.duwamish.microservice.schema.AdResponse;
 import org.duwamish.microservice.schema.MicroserviceResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(name = "skeleton-client", url = "http://localhost:8080")
 public interface SkeletonHttpClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/ads")
-    @RequestLine("GET /{ads}")
+    @RequestMapping(method = RequestMethod.GET, value = "/supply/ads")
+    @RequestLine("GET /{/supply/ads}")
     MicroserviceResponse<AdResponse> getAds();
+//    CompletableFuture<MicroserviceResponse<AdResponse>> getAds();
 
 }
