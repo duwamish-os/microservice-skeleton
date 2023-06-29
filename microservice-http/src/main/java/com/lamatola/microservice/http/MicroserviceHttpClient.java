@@ -2,6 +2,7 @@ package com.lamatola.microservice.http;
 
 import feign.Headers;
 import feign.RequestLine;
+import java.util.concurrent.CompletableFuture;
 import org.lamatola.microservice.schema.AdResponse;
 import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @FeignClient(name = "skeleton-client", url = "http://localhost:8080")
 @Headers("Content-Type: application/json")
-public interface SkeletonHttpClient {
+public interface MicroserviceHttpClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/supply/ads")
     @RequestLine("GET /v1/supply/ads")
     MicroserviceResponse<AdResponse> getAds();
-//    CompletableFuture<MicroserviceResponse<AdResponse>> getAds();
+
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/supply/ads/async")
+    @RequestLine("GET /v1/supply/ads/async")
+    CompletableFuture<MicroserviceResponse<AdResponse>> getAdsAsync();
 
 }
