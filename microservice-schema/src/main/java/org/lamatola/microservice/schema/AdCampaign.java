@@ -1,4 +1,4 @@
-package org.duwamish.microservice.schema;
+package org.lamatola.microservice.schema;
 
 import java.util.List;
 

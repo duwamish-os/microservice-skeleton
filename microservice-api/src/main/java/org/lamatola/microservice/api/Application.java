@@ -1,6 +1,5 @@
-package org.duwamish.microservice.api;
+package org.lamatola.microservice.api;
 
-import org.duwamish.microservice.schema.MicroserviceResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;

@@ -1,4 +1,4 @@
-package org.duwamish.microservice.schema;
+package org.lamatola.microservice.schema;
 
 public class MicroserviceResponse<A> {
     private A payload;

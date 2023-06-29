@@ -2,3 +2,4 @@ rootProject.name='microservice-skeleton'
 
 include 'microservice-api'
 include 'microservice-schema'
+include 'microservice-http'

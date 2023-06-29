@@ -6,6 +6,6 @@ allprojects {
 }
 
 subprojects {
-    group = 'org.duwamish.microservice'
+    group = 'org.lamatola.microservice'
     version = '1.0'
 }

@@ -21,8 +21,6 @@ apply plugin: 'com.jfrog.artifactory'
 sourceCompatibility = 12
 targetCompatibility = 12
 
-mainClassName = 'org.lamatola.microservice.api.Application'
-
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
@@ -35,42 +33,7 @@ dependencies {
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4')
     implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.4')
 
-    implementation(group: 'org.springframework.boot', name: 'spring-boot', version: '2.7.8')
-    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.7.8')
-    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.8') {
-        exclude module: "spring-boot-starter-logging"
-        exclude module: "logback-classic"
-    }
-
     implementation project(':microservice-schema')
-    implementation project(':microservice-http')
-
-    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4', {
-        exclude module: 'groovy-all'
-    }
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-}
-
-//jar {
-//    manifest {
-//        attributes(
-//                'Class-Path': configurations.compileClasspath.collect { it.getName() }.join(' '),
-//                'Main-Class': mainClassName
-//        )
-//    }
-//}
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes'Implementation-Title': 'microservice-api',
-                'Implementation-Version': version,
-                'Main-Class': mainClassName
-    }
-    baseName = project.name + '-assembly'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
 }
 
 publishing {

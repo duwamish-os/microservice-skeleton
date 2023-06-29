@@ -1,11 +1,10 @@
-package org.duwamish.microservice.api;
+package org.lamatola.microservice.api;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.duwamish.microservice.api.http.SkeletonHttpClient;
-import org.duwamish.microservice.schema.AdCampaign;
-import org.duwamish.microservice.schema.AdResponse;
-import org.duwamish.microservice.schema.MicroserviceResponse;
+import com.lamatola.microservice.http.SkeletonHttpClient;
+import org.lamatola.microservice.schema.AdCampaign;
+import org.lamatola.microservice.schema.AdResponse;
+import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/supply")

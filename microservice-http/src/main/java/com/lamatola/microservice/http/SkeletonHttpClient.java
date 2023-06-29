@@ -1,9 +1,9 @@
-package org.duwamish.microservice.api.http;
+package com.lamatola.microservice.http;
 
+import feign.Headers;
 import feign.RequestLine;
-import java.util.concurrent.CompletableFuture;
-import org.duwamish.microservice.schema.AdResponse;
-import org.duwamish.microservice.schema.MicroserviceResponse;
+import org.lamatola.microservice.schema.AdResponse;
+import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Outside of Spring, use core annotations like @RequestLine
  */
 @FeignClient(name = "skeleton-client", url = "http://localhost:8080")
+@Headers("Content-Type: application/json")
 public interface SkeletonHttpClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/supply/ads")
-    @RequestLine("GET /{/supply/ads}")
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/supply/ads")
+    @RequestLine("GET /v1/supply/ads")
     MicroserviceResponse<AdResponse> getAds();
 //    CompletableFuture<MicroserviceResponse<AdResponse>> getAds();
 

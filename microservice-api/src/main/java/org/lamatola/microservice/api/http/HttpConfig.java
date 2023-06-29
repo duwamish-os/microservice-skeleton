@@ -1,4 +1,4 @@
-package org.duwamish.microservice.api.http;
+package org.lamatola.microservice.api.http;
 
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
