@@ -1,6 +1,7 @@
 package com.lamatola.microservice.http.client;
 
 import com.lamatola.microservice.http.MicroserviceHttpClient;
+import feign.AsyncFeign;
 import feign.Feign;
 import feign.Target.HardCodedTarget;
 import feign.jackson.JacksonDecoder;
@@ -12,21 +13,24 @@ import org.lamatola.microservice.schema.MicroserviceResponse;
 public class HttpClientTest {
 
     public static void main(String[] args) {
+        MicroserviceHttpClient asyncClient = AsyncFeign.asyncBuilder()
+            .client(new OkHttpClient())
+            .decoder(new JacksonDecoder())
+            .target(new HardCodedTarget<>(MicroserviceHttpClient.class, "http://localhost:8080/"));
+
         MicroserviceHttpClient fClient = Feign.builder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
             .target(new HardCodedTarget<>(MicroserviceHttpClient.class, "http://localhost:8080/"));
 
-        MicroserviceResponse<AdResponse> ads = fClient.getAds();
+        MicroserviceResponse<AdResponse> ads = asyncClient.getAds();
 
         System.out.println(ads.getPayload().getCampaigns().get(0).getProducts());
 
-        CompletableFuture<MicroserviceResponse<AdResponse>> adsAsync = fClient.getAdsAsync();
-        int i = 0;
-        while (!adsAsync.isDone() && i < 10000000) {
-            i++;
-        }
+        CompletableFuture<MicroserviceResponse<AdResponse>> adsAsync = asyncClient.getAdsAsync();
+        System.out.println(adsAsync.join().getPayload().getCampaigns().get(0).getProducts());
 
-        System.out.println("adsAsync: " + adsAsync.isDone());
+//        Mono<MicroserviceResponse<AdResponse>> adsMono = fClient.getAdsMono();
+//        System.out.println("adsAsync: " + adsMono);
     }
 }

@@ -8,6 +8,7 @@ import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import reactor.core.publisher.Mono;
 
 /**
  * https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
@@ -26,4 +27,7 @@ public interface MicroserviceHttpClient {
     @RequestLine("GET /v1/supply/ads/async")
     CompletableFuture<MicroserviceResponse<AdResponse>> getAdsAsync();
 
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/supply/ads/mono")
+    @RequestLine("GET /v1/supply/ads/mono")
+    Mono<MicroserviceResponse<AdResponse>> getAdsMono();
 }
