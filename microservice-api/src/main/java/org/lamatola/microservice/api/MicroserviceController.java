@@ -1,7 +1,7 @@
 package org.lamatola.microservice.api;
 
 import java.util.List;
-import com.lamatola.microservice.http.MicroserviceHttpClient;
+import com.lamatola.microservice.http.MicroService;
 import java.util.concurrent.CompletableFuture;
 import org.lamatola.microservice.schema.AdCampaign;
 import org.lamatola.microservice.schema.AdResponse;
@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController("/supply")
-public class MicroserviceController implements MicroserviceHttpClient {
+public class MicroserviceController implements MicroService {
 
-    //    public CompletableFuture<MicroserviceResponse<AdResponse>> getAds() {
     public MicroserviceResponse<AdResponse> getAds() {
         System.out.println("============================= sync ========");
         return

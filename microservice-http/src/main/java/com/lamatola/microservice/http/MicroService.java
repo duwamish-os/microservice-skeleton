@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
  */
 @FeignClient(name = "skeleton-client", url = "http://localhost:8080")
 @Headers("Content-Type: application/json")
-public interface MicroserviceHttpClient {
+public interface MicroService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/supply/ads")
     @RequestLine("GET /v1/supply/ads")
