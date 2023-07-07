@@ -9,10 +9,18 @@ import feign.okhttp.OkHttpClient;
 import java.util.concurrent.CompletableFuture;
 import org.lamatola.microservice.schema.AdResponse;
 import org.lamatola.microservice.schema.MicroserviceResponse;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
-public class MicroserviceHttpClientTest {
+@Component
+@Order(1)
+public class MicroServiceManualClient implements CommandLineRunner {
 
-    public static void main(String[] args) {
+    @Override
+    public void run(String... args) throws Exception {
+
         MicroService asyncClient = AsyncFeign.asyncBuilder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
@@ -25,6 +33,7 @@ public class MicroserviceHttpClientTest {
 
         MicroserviceResponse<AdResponse> ads = asyncClient.getAds();
 
+        System.out.println("==============================================");
         System.out.println(ads.getPayload().getCampaigns().get(0).getProducts());
 
         CompletableFuture<MicroserviceResponse<AdResponse>> adsAsync = asyncClient.getAdsAsync();

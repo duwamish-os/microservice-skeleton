@@ -1,11 +1,16 @@
-microservice skeleton
+Microservice skeleton
 -----------------------
 
-This demonstrates how to create a microservice with api and schema as separate jars.
+This demonstrates how to create a microservice with api, http-client and schema as separate jars.
 
 - microservice-api
+- microservice-http
 - microservice-schema
  
+Read [Building Microservice](https://danlebrero.com/2023/01/24/building-microservices-second-edition-designing-fine-grained-systems-summary/#ch-5), Chapter 5/ "**Sharing code via libraries**".
+
+Also read
+- https://github.com/Netflix/Hystrix/wiki/#what
 
 publishing artifacts
 ----------

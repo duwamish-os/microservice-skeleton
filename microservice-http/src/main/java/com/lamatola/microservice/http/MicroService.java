@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  * FeignClient, RequestMapping are Spring annotation.
  * Outside of Spring, use core annotations like @RequestLine
  */
-@FeignClient(name = "skeleton-client", url = "http://localhost:8080")
+@FeignClient(name = "microService", url = "http://localhost:8080", configuration = MicroServiceConfig.class)
 @Headers("Content-Type: application/json")
 public interface MicroService {
 
