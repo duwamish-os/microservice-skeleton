@@ -47,3 +47,17 @@ curl localhost:8080/ads
 [{"ads":["1","2"]}]
 
 ```
+
+Implementing Microservice Communication
+-----
+
+1) Looking for ideal technology: SOAP, REST, gRPC
+2) Make backward compatibility easy
+3) Make your interface explicit
+
+Upstream/ consumer microservices practices
+- https://martinfowler.com/bliki/TolerantReader.html
+```
+be conservative in what you do, be liberal in what you accept from others.
+Jon Postel
+```
