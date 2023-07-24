@@ -1,7 +1,7 @@
 package org.lamatola.microservice.api.application;
 
 import java.util.List;
-import com.lamatola.microservice.http.MicroService;
+import com.lamatola.microservice.http.AdSelectionMicroService;
 import java.util.concurrent.CompletableFuture;
 import org.lamatola.microservice.api.domain.CampaignDomainService;
 import org.lamatola.microservice.schema.AdCampaign;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController("/supply")
-public class MicroserviceController implements MicroService {
+public class AdSelectionMicroserviceController implements AdSelectionMicroService {
 
     @Autowired
     CampaignDomainService campaignDomainService;

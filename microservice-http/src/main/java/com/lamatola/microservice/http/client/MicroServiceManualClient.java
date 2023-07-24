@@ -1,6 +1,6 @@
 package com.lamatola.microservice.http.client;
 
-import com.lamatola.microservice.http.MicroService;
+import com.lamatola.microservice.http.AdSelectionMicroService;
 import feign.AsyncFeign;
 import feign.Feign;
 import feign.Target.HardCodedTarget;
@@ -12,7 +12,6 @@ import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
 @Component
 @Order(1)
@@ -21,15 +20,15 @@ public class MicroServiceManualClient implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        MicroService asyncClient = AsyncFeign.asyncBuilder()
+        AdSelectionMicroService asyncClient = AsyncFeign.asyncBuilder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
-            .target(new HardCodedTarget<>(MicroService.class, "http://localhost:8080/"));
+            .target(new HardCodedTarget<>(AdSelectionMicroService.class, "http://localhost:8080/"));
 
-        MicroService fClient = Feign.builder()
+        AdSelectionMicroService fClient = Feign.builder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
-            .target(new HardCodedTarget<>(MicroService.class, "http://localhost:8080/"));
+            .target(new HardCodedTarget<>(AdSelectionMicroService.class, "http://localhost:8080/"));
 
         MicroserviceResponse<AdResponse> ads = asyncClient.getAds();
 
