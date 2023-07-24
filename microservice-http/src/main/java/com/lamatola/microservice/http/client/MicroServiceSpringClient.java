@@ -1,7 +1,6 @@
 package com.lamatola.microservice.http.client;
 
 import com.lamatola.microservice.http.MicroService;
-import java.util.concurrent.CompletableFuture;
 import org.lamatola.microservice.schema.AdResponse;
 import org.lamatola.microservice.schema.MicroserviceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
