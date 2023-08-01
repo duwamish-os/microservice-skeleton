@@ -48,9 +48,19 @@ run microservice
 ```bash
 λ gradle clean run
 
-curl localhost:8080/ads
+curl localhost:8080/v1/ads
 [{"ads":["1","2"]}]
 
+
+## logs
+-------------------------------------- start sending request 1 ------------------------
+-------------------------------------- start sending request 2 ------------------------
+select request1 completed: pool-2-thread-1: 5009
+rank request1 completed: pool-2-thread-1: 8018
+select request2 completed: pool-2-thread-1: 10012
+rank request2 completed: pool-2-thread-1: 13017
+Response created in pool-2-thread-1: 13017
+Response completed in pool-2-thread-1: 13017
 ```
 
 Implementing Microservice Communication

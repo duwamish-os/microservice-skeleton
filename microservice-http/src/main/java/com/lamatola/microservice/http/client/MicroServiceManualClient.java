@@ -1,6 +1,6 @@
 package com.lamatola.microservice.http.client;
 
-import com.lamatola.microservice.http.AdSelectionMicroService;
+import com.lamatola.microservice.http.AdServerMicroService;
 import feign.AsyncFeign;
 import feign.Feign;
 import feign.Target.HardCodedTarget;
@@ -20,20 +20,20 @@ public class MicroServiceManualClient implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        AdSelectionMicroService asyncClient = AsyncFeign.asyncBuilder()
+        AdServerMicroService asyncClient = AsyncFeign.asyncBuilder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
-            .target(new HardCodedTarget<>(AdSelectionMicroService.class, "http://localhost:8080/"));
+            .target(new HardCodedTarget<>(AdServerMicroService.class, "http://localhost:8080/"));
 
-        AdSelectionMicroService fClient = Feign.builder()
+        AdServerMicroService fClient = Feign.builder()
             .client(new OkHttpClient())
             .decoder(new JacksonDecoder())
-            .target(new HardCodedTarget<>(AdSelectionMicroService.class, "http://localhost:8080/"));
+            .target(new HardCodedTarget<>(AdServerMicroService.class, "http://localhost:8080/"));
 
-        MicroserviceResponse<AdResponse> ads = asyncClient.getAds();
+        CompletableFuture<MicroserviceResponse<AdResponse>> ads = asyncClient.getAds();
 
         System.out.println("==============================================");
-        System.out.println(ads.getPayload().getCampaigns().get(0).getProducts());
+        System.out.println(ads.join().getPayload().getCampaigns().get(0).getProducts());
 
         CompletableFuture<MicroserviceResponse<AdResponse>> adsAsync = asyncClient.getAdsAsync();
         System.out.println(adsAsync.join().getPayload().getCampaigns().get(0).getProducts());

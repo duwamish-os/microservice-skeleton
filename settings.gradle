@@ -1,4 +1,4 @@
-rootProject.name='microservice-skeleton'
+rootProject.name='adserver-microservice'
 
 include 'microservice-api'
 include 'microservice-schema'

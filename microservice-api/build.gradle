@@ -21,7 +21,7 @@ apply plugin: 'com.jfrog.artifactory'
 sourceCompatibility = 12
 targetCompatibility = 12
 
-mainClassName = 'org.lamatola.microservice.api.Application'
+mainClassName = 'org.lamatola.microservice.api.AdServerApplication'
 
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'

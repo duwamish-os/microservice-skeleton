@@ -17,11 +17,11 @@ import reactor.core.publisher.Mono;
  */
 @FeignClient(name = "microService", url = "http://localhost:8080", configuration = MicroServiceConfig.class)
 @Headers("Content-Type: application/json")
-public interface AdSelectionMicroService {
+public interface AdServerMicroService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/ads")
     @RequestLine("GET /v1/ads")
-    MicroserviceResponse<AdResponse> getAds();
+    CompletableFuture<MicroserviceResponse<AdResponse>> getAds();
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/ads/async")
     @RequestLine("GET /v1/ads/async")
