@@ -53,14 +53,16 @@ curl localhost:8080/v1/ads
 
 
 ## logs
--------------------------------------- start sending request 1 ------------------------
--------------------------------------- start sending request 2 ------------------------
-select request1 completed: pool-2-thread-1: 5009
-rank request1 completed: pool-2-thread-1: 8018
-select request2 completed: pool-2-thread-1: 10012
-rank request2 completed: pool-2-thread-1: 13017
-Response created in pool-2-thread-1: 13017
-Response completed in pool-2-thread-1: 13017
+-------------------------------------- start selection request1 ------------------------
+-------------------------------------- start selection request2 ------------------------
+rank request1 started: pool-2-thread-1: 5005
+rank request2 started: pool-2-thread-1: 5007
+
+rank request1 completed: pool-2-thread-1: 8015
+rank request2 completed: pool-2-thread-1: 8018
+
+Response created in pool-2-thread-1: 8018
+Response completed in pool-2-thread-1: 8018
 ```
 
 Implementing Microservice Communication
@@ -76,3 +78,9 @@ Upstream/ consumer microservices practices
 be conservative in what you do, be liberal in what you accept from others.
 Jon Postel
 ```
+
+Downstrea microservices
+---
+
+- 
+- https://github.com/lamatola-os/spring-netty-adranking-microservice

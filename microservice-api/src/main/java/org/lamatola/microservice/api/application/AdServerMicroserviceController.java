@@ -25,24 +25,27 @@ public class AdServerMicroserviceController implements AdServerMicroService {
     @Autowired
     CampaignDomainService campaignDomainService;
 
-    ExecutorService threadPool = Executors.newFixedThreadPool(1);
+    ExecutorService threadPool1 = Executors.newFixedThreadPool(1);
+    ExecutorService threadPool2 = threadPool1;
 
     HttpClient client1 = HttpClient.newBuilder()
-        .executor(threadPool)
+        .executor(threadPool1)
         .build();
-    HttpClient client2 = client1;
+    HttpClient client2 = HttpClient.newBuilder()
+        .executor(threadPool2)
+        .build();
 
     public CompletableFuture<MicroserviceResponse<AdResponse>> getAds() {
         System.out.println("============================= sync ========");
 
         HttpRequest selectionRequest1 = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:8081/"))
+            .uri(URI.create("http://localhost:8081/v1/ads/select"))
             .timeout(Duration.ofMillis(TIMEOUT_MILLIS))
             .header("Content-Type", "application/json")
             .build();
 
         HttpRequest selectionRequest2 = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:8081/"))
+            .uri(URI.create("http://localhost:8081/v1/ads/select"))
             .timeout(Duration.ofMillis(TIMEOUT_MILLIS))
             .header("Content-Type", "application/json")
             .build();
@@ -50,8 +53,10 @@ public class AdServerMicroserviceController implements AdServerMicroService {
         long start = System.currentTimeMillis();
 
         System.out.println("-------------------------------------- start selection request1 ------------------------");
-        CompletableFuture<String> adsCandidates1 = client1.sendAsync(selectionRequest1, BodyHandlers.ofString())
-            .thenComposeAsync(res -> {
+        var adsCandidatesFuture1 = client1.sendAsync(selectionRequest1, BodyHandlers.ofString());
+        var adsCandidatesFuture2 = client2.sendAsync(selectionRequest2, BodyHandlers.ofString());
+
+        CompletableFuture<String> adsCandidates1 = adsCandidatesFuture1.thenComposeAsync(res -> {
                 System.out.println("rank request1 started: " + thread() + ": " + (System.currentTimeMillis() - start));
                 HttpRequest rankRequest = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8082/v1/ads/rank/sync"))
@@ -62,13 +67,12 @@ public class AdServerMicroserviceController implements AdServerMicroService {
                 CompletableFuture<String> rankedAds = client1.sendAsync(rankRequest, BodyHandlers.ofString())
                     .thenApply(a -> a.body());
                 return rankedAds;
-            }, threadPool).whenCompleteAsync((a, b) -> {
+            }, threadPool1).whenCompleteAsync((a, b) -> {
                 System.out.println("rank request1 completed: " + thread() + ": " +  (System.currentTimeMillis() - start));
-            }, threadPool);
+            }, threadPool1);
 
         System.out.println("-------------------------------------- start selection request2 ------------------------");
-        CompletableFuture<String> adsCandidates2 = client1.sendAsync(selectionRequest2, BodyHandlers.ofString())
-            .thenComposeAsync(res -> {
+        CompletableFuture<String> adsCandidates2 = adsCandidatesFuture2.thenComposeAsync(res -> {
                 System.out.println("rank request2 started: " + thread() + ": " + (System.currentTimeMillis() - start));
                 HttpRequest rankRequest = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8082/v1/ads/rank/sync"))
@@ -76,21 +80,21 @@ public class AdServerMicroserviceController implements AdServerMicroService {
                     .header("Content-Type", "application/json")
                     .build();
 
-                CompletableFuture<String> rankedAds = client1.sendAsync(rankRequest, BodyHandlers.ofString())
+                CompletableFuture<String> rankedAds = client2.sendAsync(rankRequest, BodyHandlers.ofString())
                     .thenApply(a -> a.body());
                 return rankedAds;
-            }, threadPool).whenCompleteAsync((a, b) -> {
+            }, threadPool2).whenCompleteAsync((a, b) -> {
                 System.out.println("rank request2 completed: " + thread() + ": " + (System.currentTimeMillis() - start));
-            }, threadPool);;
+            }, threadPool2);;
 
         return CompletableFuture.allOf(adsCandidates1, adsCandidates2).thenApplyAsync(___ -> {
             List<String> ranked = List.of(adsCandidates1.join(), adsCandidates2.join());
             var response = new MicroserviceResponse<>(new AdResponse(List.of(new AdCampaign(ranked))));
             System.out.println("Response created in " + thread() + ": " + (System.currentTimeMillis() - start));
             return response;
-        }, threadPool).whenCompleteAsync((____, err) -> {
+        }, threadPool1).whenCompleteAsync((____, err) -> {
             System.out.println("Response completed in " + thread() + ": " + (System.currentTimeMillis() - start));
-        }, threadPool);
+        }, threadPool1);
     }
 
     private static String thread() {
